@@ -1,0 +1,223 @@
+{
+  "providers": [
+    {
+      "id": 1,
+      "name": "Alonzo, Anthony",
+      "type": "DMFT, LMFT, CFLE",
+      "phone": "385-247-0462",
+      "address": "43 W. 9000 S. #B1 84070",
+      "zone": 5,
+      "practice": "Self",
+      "website": "goodtherapy.org",
+      "url": "https://www.goodtherapy.org/therapists/profile/anthony-alonzo-20111213",
+      "pricing": "$145",
+      "waitTime": "",
+      "therapyProvided": "Porn, Teens, Adults",
+      "communicationStyle": "",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "facilities": [
+        {
+          "id": 3,
+          "name": "Happy help",
+          "phone": "385-247-2603",
+          "address": "211 E. 300 S. #209A 84111",
+          "zone": 1,
+          "website": "stuff.org",
+          "url": "https://www.stuff.org/",
+          "dateCreated": "2020-02-28",
+          "dateEdited": "2020-02-28",
+          "lastModifiedBy": "System"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Applegate, Crystal",
+      "type": "CMHC",
+      "phone": "435-228-7814",
+      "address": "1196 W. South Jordan Pkwy #D 84095",
+      "zone": 6,
+      "practice": "Self",
+      "website": "goodtherapy.org",
+      "url": "https://www.goodtherapy.org/therapists/profile/crystal-applegate-20170511",
+      "pricing": "$130 intake, $95, Blue Cross, Cigna, EMI",
+      "waitTime": "",
+      "therapyProvided": "Art",
+      "communicationStyle": "",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "facilities": [
+        {
+          "id": 2,
+          "name": "The Nexus",
+          "phone": "435-228-7814",
+          "address": "1196 W. South Jordan Pkwy #D 84095",
+          "zone": 6,
+          "website": "goodtherapy.org",
+          "url": "https://www.goodtherapy.org/",
+          "dateCreated": "2020-02-28",
+          "dateEdited": "2020-02-28",
+          "lastModifiedBy": "System"
+        },
+        {
+          "id": 3,
+          "name": "Happy help",
+          "phone": "385-247-2603",
+          "address": "211 E. 300 S. #209A 84111",
+          "zone": 1,
+          "website": "stuff.org",
+          "url": "https://www.stuff.org/",
+          "dateCreated": "2020-02-28",
+          "dateEdited": "2020-02-28",
+          "lastModifiedBy": "System"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Bone, Jim",
+      "type": "LCSW",
+      "phone": "385-247-2603",
+      "address": "211 E. 300 S. #209A 84111",
+      "zone": 1,
+      "practice": "Young Minds Therapy",
+      "website": "goodtherapy.org",
+      "url": "https://www.goodtherapy.org/therapists/profile/jim-bone-20090827",
+      "pricing": "",
+      "waitTime": "",
+      "therapyProvided": "Speaks German",
+      "communicationStyle": "",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "facilities": [
+        {
+          "id": 1,
+          "name": "IHCish",
+          "phone": "385-247-0462",
+          "address": "43 W. 9000 S. #B1 84070",
+          "zone": 5,
+          "website": "goodtherapy.org",
+          "url": "https://www.goodtherapy.org/",
+          "dateCreated": "2020-02-28",
+          "dateEdited": "2020-02-28",
+          "lastModifiedBy": "System"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Ertl, Michelle",
+      "type": "PhD",
+      "phone": "801-419-0139",
+      "address": "164 S. 900 E. 84102",
+      "zone": 12,
+      "practice": "Utah Center For Evidence Based Treatment",
+      "website": "ucebt.com",
+      "url": "https://www.ucebt.com/about-us/primary-staff/primary/michelle-ertl-ph-d",
+      "pricing": "",
+      "waitTime": "",
+      "therapyProvided": "",
+      "communicationStyle": "",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "facilities": [
+        {
+          "id": 1,
+          "name": "IHCish",
+          "phone": "385-247-0462",
+          "address": "43 W. 9000 S. #B1 84070",
+          "zone": 5,
+          "website": "goodtherapy.org",
+          "url": "https://www.goodtherapy.org/",
+          "dateCreated": "2020-02-28",
+          "dateEdited": "2020-02-28",
+          "lastModifiedBy": "System"
+        }
+      ]
+    }
+  ],
+  "facilities": [
+    {
+      "id": 1,
+      "name": "IHCish",
+      "phone": "385-247-0462",
+      "address": "43 W. 9000 S. #B1 84070",
+      "zone": 5,
+      "website": "goodtherapy.org",
+      "url": "https://www.goodtherapy.org/",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "providers": [
+        {
+          "id": 3,
+          "name": "Bone, Jim",
+          "type": "LCSW",
+          "phone": "385-247-2603",
+          "address": "211 E. 300 S. #209A 84111"
+        },
+        {
+          "id": 4,
+          "name": "Ertl, Michelle",
+          "type": "PhD",
+          "phone": "801-419-0139",
+          "address": "164 S. 900 E. 84102"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "The Nexus",
+      "phone": "435-228-7814",
+      "address": "1196 W. South Jordan Pkwy #D 84095",
+      "zone": 6,
+      "website": "goodtherapy.org",
+      "url": "https://www.goodtherapy.org/",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "providers": [
+        {
+          "id": 2,
+          "name": "Applegate, Crystal",
+          "type": "CMHC",
+          "phone": "435-228-7814",
+          "address": "1196 W. South Jordan Pkwy #D 84095"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Happy help",
+      "phone": "385-247-2603",
+      "address": "211 E. 300 S. #209A 84111",
+      "zone": 1,
+      "website": "stuff.org",
+      "url": "https://www.stuff.org/",
+      "dateCreated": "2020-02-28",
+      "dateEdited": "2020-02-28",
+      "lastModifiedBy": "System",
+      "providers": [
+        {
+          "id": 1,
+          "name": "Alonzo, Anthony",
+          "type": "DMFT, LMFT, CFLE",
+          "phone": "385-247-0462",
+          "address": "43 W. 9000 S. #B1 84070"
+        },
+        {
+          "id": 2,
+          "name": "Applegate, Crystal",
+          "type": "CMHC",
+          "phone": "435-228-7814",
+          "address": "1196 W. South Jordan Pkwy #D 84095"
+        }
+      ]
+    }
+  ]
+}
