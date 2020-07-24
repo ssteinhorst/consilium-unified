@@ -9,12 +9,7 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 // time.
 const TOKEN_PATH = 'token.json';
 
-// Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listMajors);
-});
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -23,19 +18,16 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {function} callback The callback to call with the authorized client.
  */
 
-function authorize(credentials, callback) {
-    console.log("HI");
-
-
-    const {client_secret, client_id, redirect_uris} = credentials.web;
+function authorize(credentials, callback, resolve, reject) {
+    const {client_secret, client_id, redirect_uris} = credentials.installed;
     const oAuth2Client = new google.auth.OAuth2(
         client_id, client_secret, redirect_uris[0]);
 
     // Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, (err, token) => {
-        if (err) return getNewToken(oAuth2Client, callback);
+        if (err) return getNewToken(oAuth2Client, callback, resolve, reject);
         oAuth2Client.setCredentials(JSON.parse(token));
-        callback(oAuth2Client);
+        callback(oAuth2Client, resolve, reject);
     });
 }
 
@@ -45,7 +37,7 @@ function authorize(credentials, callback) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-function getNewToken(oAuth2Client, callback) {
+function getNewToken(oAuth2Client, callback, resolve, reject) {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: SCOPES,
@@ -58,7 +50,9 @@ function getNewToken(oAuth2Client, callback) {
     rl.question('Enter the code from that page here: ', (code) => {
         rl.close();
         oAuth2Client.getToken(code, (err, token) => {
-            if (err) return console.error('Error while trying to retrieve access token', err);
+            if (err) {
+                return console.error('Error while trying to retrieve access token', err);
+            }
             oAuth2Client.setCredentials(token);
             // Store the token to disk for later program executions
             fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
@@ -75,22 +69,57 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function listMajors(auth) {
+function getProviders(auth, resolve, reject) {
+    let providerResult = [];
+
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
-        spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-        range: 'Class Data!A2:E',
+        spreadsheetId: '18qALKvDKv2WYOZSs-MlhSO7hJWkbPU3laslT3e9Cq1k',
+        range: "'Mental Health'!A2:T14",
     }, (err, res) => {
-        if (err) return console.log('The API returned an error: ' + err);
+        if (err) {
+            reject('The API returned an error: ' + err);
+            return console.log('The API returned an error: ' + err);
+        }
         const rows = res.data.values;
         if (rows.length) {
-            console.log('Name, Major:');
-            // Print columns A and E, which correspond to indices 0 and 4.
+            // rows is an array of rows
             rows.map((row) => {
-                console.log(`${row[0]}, ${row[4]}`);
+                providerResult.push({
+                    name: row[0],//"0",
+                    type: row[1],//"1",
+                    phone: row[2],//"2",
+                    address: row[4],//"4",
+                    zone: row[3],//"3",
+                    practice: row[10],//"10",
+                    website: row[11],//"11",
+                    url: row[11],//"11",
+                    pricing: row[12],//"12",
+                    waitTime: row[13],//"13",
+                    therapyProvided: row[14],//"14",
+                    communicationStyle: row[15],//"15"
+                })
             });
         } else {
             console.log('No data found.');
         }
+        resolve(providerResult);
+        return providerResult;
     });
+}
+async function getSheetsProviders() {
+    // Load client secrets from a local file.
+    return new Promise(function(resolve, reject) {
+        fs.readFile('credentials.json', (err, content) => {
+            if (err) return console.log('Error loading client secret file:', err);
+            // Authorize a client with credentials, then call the Google Sheets API.
+            authorize(JSON.parse(content), getProviders, resolve, reject);
+        });
+    });
+
+
+
+}
+module.exports = {
+    getSheetsProviders : getSheetsProviders
 }
