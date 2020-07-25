@@ -1,54 +1,39 @@
 <template>
   <div>
     <my-header></my-header>
-    <div class="headerBox border container-fluid m-0 p-0">
-      <div class="navBar row m-1">
-        <div class="m-1" id="nav">
-          <p class="navLinks m-1">
-            <button v-on:click="toggleSearch">Search</button>
-            |
-            <button v-on:click="toggleEdit">Create</button>
-            |
-            <button v-on:click="toggleFacilities">Facilites</button>
-            |
-            <button v-on:click="signIn">Sign In</button>
-            |
-            <button v-on:click="signOut">Sign Out</button>
-          </p>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">Provider Search</div>
+      </div>
+      <div class="row searchrow">
+        <div class="col-sm " align="center">
+          <b-input-group prepend="Name">
+            <b-form-input v-model="searchName" placeholder="Search by name"></b-form-input>
+          </b-input-group>
+        </div>
+        <div class="col-sm" align="center">
+          <b-input-group prepend="Zone">
+            <b-form-input type="number" v-model="searchZone" placeholder="Search by zone"></b-form-input>
+          </b-input-group>
+        </div>
+        <div class="col-sm" align="center">
+          <b-input-group prepend="Type">
+            <b-form-input v-model="searchType" placeholder="Search by type"></b-form-input>
+          </b-input-group>
+        </div>
+      </div>
+      <div class="row searchrow">
+        <div class="col">
+          <b-button v-on:click="searchProviders">Go</b-button>
+        </div>
+        <div class="col">
+          <div class="dropdown">
+            <b-form-select v-model="specialtySelected" :options="options"></b-form-select>
+          </div>
         </div>
       </div>
     </div>
-<!--    <my-search v-if="searchEnabled" v-bind:providers="providers" searchProviderParent="searchProviders"></my-search>-->
-
-    <div class="container border">
-      <div class="row">
-        <div class="col">Search</div>
-        <div class="col">
-          <input type="radio" id="providerSearch" value="providerSearch" v-model="searchType"> Provider
-        </div>
-        <div class="col">
-          <input type="radio" id="facilitySearch" value="facilitySearch" v-model="searchType"> Facility
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm" align="center">
-          <input type="text" id="sname" ref="searchName" placeholder="Name search">
-        </div>
-        <div class="col-sm" align="center">
-          <input type="text" id="szone" ref="searchZone" placeholder="Zone search">
-        </div>
-        <div class="col-sm" align="center">
-          <input type="text" id="stype" ref="searchType" placeholder="Type search">
-        </div>
-      </div>
-      <div class="row">
-        <button v-on:click="searchProviders">Go</button>
-      </div>
-    </div>
-
-    <my-provider v-if="searchEnabled" v-bind:providers="providers"></my-provider>
-    <my-create v-if="createEnabled" v-bind:providers="providers" v-bind:facilities="facilities"></my-create>
-    <my-facilities v-if="facilitiesEnabled" v-bind:facilities="facilities"></my-facilities>
+    <my-provider v-bind:providers="providers"></my-provider>
   </div>
 </template>
 
@@ -56,112 +41,63 @@
 
 import header from './components/header';
 import provider from './components/provider';
-// import search from './components/search';
-import create from './components/create';
-import data from './assets/data.json';
-import facilities from './components/facilities';
 let axios = require('axios');
 
 export default {
   name: 'App',
   components: {
     'my-header': header,
-    // 'my-search': search,
     'my-provider': provider,
-    'my-create': create,
-    'my-facilities': facilities
   },
   computed: {
-    // searchUrlParms: function() {
-    //   let searchString = "?";
-    //
-    //   return searchString;
-    // },
-    searchEnabled:{
-      get: function() {
-        return true;
 
-      },
-      set: function () {
-
-      }
-    }
   },
   data: function() {
     return {
-
-      // isAuthorized: this.$isSignedIn(),
-      providerSearch: true,
-      facilitySearch: false,
-      searchType: "providerSearch",
+      specialtySelected: 'Mental Health',
+      options: [
+        { value: 'Message Therapy', text: 'Message Therapy' },
+        { value: 'Mental Health', text: 'Mental Health' },
+        { value: 'Psychiatry', text: 'Psychiatry' },
+        { value: 'Pediatricians', text: 'Pediatricians' },
+        { value: 'Podiatrists', text: 'Podiatrists' },
+        { value: 'Gynecologists', text: 'Gynecologists' },
+        { value: 'Urologists', text: 'Urologists' },
+        { value: 'PrimaryCare', text: 'PrimaryCare' },
+        { value: 'NaturalMedicine', text: 'NaturalMedicine' },
+        { value: 'Dermatologists', text: 'Dermatologists' },
+        { value: 'Rheumatology', text: 'Rheumatology' }
+      ],
+      searchType: "",
+      searchZone: "",
+      searchName: "",
       providers: [],
-      facilities: data.facilities,
-      createEnabled: true,
-      // searchEnabled: false,
-      facilitiesEnabled: false
     };
   },
   methods: {
     searchProviders() {
       const urlWithParams = new URL("http://localhost:3000/providers");
-
-      if(this.$refs.searchName.value) {
-        urlWithParams.searchParams.append("name", this.$refs.searchName.value);
+      urlWithParams.searchParams.append("specialty", this.specialtySelected);
+      if(this.searchName) {
+        urlWithParams.searchParams.append("name", this.searchName);
       }
-      if(this.$refs.searchZone.value) {
-        urlWithParams.searchParams.append("zone", this.$refs.searchZone.value);
+      if(this.searchZone) {
+        urlWithParams.searchParams.append("zone", this.searchZone);
       }
-      if(this.$refs.searchType.value) {
-        urlWithParams.searchParams.append("type", this.$refs.searchType.value);
+      if(this.searchType) {
+        urlWithParams.searchParams.append("type", this.searchType);
       }
 
-
-
-      console.log(urlWithParams.href);
-
-
-
-
+      console.log("searching... " + urlWithParams.href);
       this.providers = axios.get(urlWithParams.href).then(res => (this.providers = res.data));
-      // this.providers = axios.get('http://localhost:3000/providers').then (function (res) {
-      //   console.log("res: "+res);
-      //   console.dir(res);
-      //   this.providers = res.data;
-      // });
-      console.log(" searching...");
-      // console.dir(this.providers);
-      // make axoios call to get providers from external soure
-      // set the providers variable to the result
-
-    },
-    created(){
-      // Fetch Data
-      // this.fetchData();
-      console.log("in created");
     },
 
     signIn() {
-      this.$login();
+      // this.$login();
     },
     signOut() {
-      this.$logout();
+      // this.$logout();
     },
-
-    toggleEdit() {
-      this.createEnabled = this.createEnabled? false:true;
-      // if(this.createEnabled) {
-      //   this.createEnabled = false
-      // } else {
-      //   this.createEnabled = true;
-      // }
-    },
-    toggleSearch() {
-      this.searchEnabled = this.searchEnabled? false:true;
-    },
-    toggleFacilities() {
-      this.facilitiesEnabled = this.facilitiesEnabled? false:true;
-
-    }
   }
 }
 </script>
@@ -177,5 +113,14 @@ export default {
   margin-left: 60px;
 }
 
+  .row.searchrow {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
 </style>

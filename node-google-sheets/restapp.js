@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000
-// let allProviders = require('./data/seed-data').providers;
-let gsUtil = require('./index-auth');
+let gsUtil = require('./gs-auth');
 
 // re-examine cors usage in production
 let cors = require('cors');
@@ -18,9 +17,7 @@ app.get('/providers', async (req, res) => {
     return res.status(400).end();
   }
   // get sheets data here and filter results
-  console.log("before")
   let allProviders = await gsUtil.getSheetsProviders(req.query.specialty);
-  console.log("after")
   let filters = { };
   if(req.query.zone) {
       filters.zone = req.query.zone;
@@ -44,12 +41,6 @@ app.get('/providers', async (req, res) => {
     }
     return true;
   });
-
-  // providers = allProviders.filter(function (item) {
-  //     return item.population > 3000000;
-  // });
-  // console.dir(providers);
-  // }
   return res.json(providers);
 });
 
