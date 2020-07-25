@@ -13,16 +13,27 @@ app.use(cors({
 }));
 
 app.get('/providers', async (req, res) => {
+  if(!req.query.specialty) {
+    res.statusMessage = "Specialty is required";
+    return res.status(400).end();
+  }
   // get sheets data here and filter results
   console.log("before")
-  let allProviders = await gsUtil.getSheetsProviders();
+  let allProviders = await gsUtil.getSheetsProviders(req.query.specialty);
   console.log("after")
-  let name = req.query.name;
-  let zone = req.query.zone;
-  let type = req.query.type;
+  let filters = { };
+  if(req.query.zone) {
+      filters.zone = req.query.zone;
+  }
+  if(req.query.name) {
+    filters.name = req.query.name;
+  }
+  if(req.query.type) {
+    filters.type = req.query.type;
+  }
 
   let providers = allProviders.filter(function (item) {
-    for (let key in req.query) {
+    for (let key in filters) {
       if (key == 'zone') {
         if (item[key] === undefined || item[key] != req.query[key])
           return false;

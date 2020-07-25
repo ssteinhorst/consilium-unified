@@ -18,7 +18,7 @@ const TOKEN_PATH = 'token.json';
  * @param {function} callback The callback to call with the authorized client.
  */
 
-function authorize(credentials, callback, resolve, reject) {
+function authorize(credentials, specialty, callback, resolve, reject) {
     const {client_secret, client_id, redirect_uris} = credentials.installed;
     const oAuth2Client = new google.auth.OAuth2(
         client_id, client_secret, redirect_uris[0]);
@@ -27,7 +27,7 @@ function authorize(credentials, callback, resolve, reject) {
     fs.readFile(TOKEN_PATH, (err, token) => {
         if (err) return getNewToken(oAuth2Client, callback, resolve, reject);
         oAuth2Client.setCredentials(JSON.parse(token));
-        callback(oAuth2Client, resolve, reject);
+        callback(oAuth2Client, specialty, resolve, reject);
     });
 }
 
@@ -69,13 +69,13 @@ function getNewToken(oAuth2Client, callback, resolve, reject) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function getProviders(auth, resolve, reject) {
+function getProviders(auth, specialty, resolve, reject) {
     let providerResult = [];
 
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
         spreadsheetId: '18qALKvDKv2WYOZSs-MlhSO7hJWkbPU3laslT3e9Cq1k',
-        range: "'Mental Health'!A2:T14",
+        range: "'" + specialty + "'" + "!A2:T300",
     }, (err, res) => {
         if (err) {
             reject('The API returned an error: ' + err);
@@ -107,13 +107,13 @@ function getProviders(auth, resolve, reject) {
         return providerResult;
     });
 }
-async function getSheetsProviders() {
+async function getSheetsProviders(specialty) {
     // Load client secrets from a local file.
     return new Promise(function(resolve, reject) {
         fs.readFile('credentials.json', (err, content) => {
             if (err) return console.log('Error loading client secret file:', err);
             // Authorize a client with credentials, then call the Google Sheets API.
-            authorize(JSON.parse(content), getProviders, resolve, reject);
+            authorize(JSON.parse(content), specialty, getProviders, resolve, reject);
         });
     });
 
