@@ -56,15 +56,15 @@ export default {
     return {
       specialtySelected: 'Mental Health',
       options: [
-        { value: 'Message Therapy', text: 'Message Therapy' },
+        { value: 'Massage Therapy', text: 'Massage Therapy' },
         { value: 'Mental Health', text: 'Mental Health' },
         { value: 'Psychiatry', text: 'Psychiatry' },
         { value: 'Pediatricians', text: 'Pediatricians' },
         { value: 'Podiatrists', text: 'Podiatrists' },
         { value: 'Gynecologists', text: 'Gynecologists' },
         { value: 'Urologists', text: 'Urologists' },
-        { value: 'PrimaryCare', text: 'PrimaryCare' },
-        { value: 'NaturalMedicine', text: 'NaturalMedicine' },
+        { value: 'Primary Care', text: 'Primary Care' },
+        { value: 'Natural Medicine', text: 'Natural Medicine' },
         { value: 'Dermatologists', text: 'Dermatologists' },
         { value: 'Rheumatology', text: 'Rheumatology' }
       ],

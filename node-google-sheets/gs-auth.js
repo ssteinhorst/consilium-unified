@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+let practionerDbId = '1L1_VUbuNvWgjXond_LuBN5_TQVsKHNIQkPHBTOxKVGo';
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
@@ -74,7 +75,7 @@ function getProviders(auth, specialty, resolve, reject) {
 
     const sheets = google.sheets({version: 'v4', auth});
     sheets.spreadsheets.values.get({
-        spreadsheetId: '18qALKvDKv2WYOZSs-MlhSO7hJWkbPU3laslT3e9Cq1k',
+        spreadsheetId: practionerDbId,
         range: "'" + specialty + "'" + "!A2:T300",
     }, (err, res) => {
         if (err) {
