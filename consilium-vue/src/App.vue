@@ -59,7 +59,7 @@ export default {
         { value: 'Massage Therapy', text: 'Massage Therapy' },
         { value: 'Mental Health', text: 'Mental Health' },
         { value: 'Psychiatry', text: 'Psychiatry' },
-        { value: 'Pediatricians', text: 'Pediatricians' },
+        { value: 'Pediatricians ', text: 'Pediatricians' },
         { value: 'Podiatrists', text: 'Podiatrists' },
         { value: 'Gynecologists', text: 'Gynecologists' },
         { value: 'Urologists', text: 'Urologists' },

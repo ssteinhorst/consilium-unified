@@ -83,7 +83,7 @@ function getProviders(auth, specialty, resolve, reject) {
             return console.log('The API returned an error: ' + err);
         }
         const rows = res.data.values;
-        if (rows.length) {
+        if (rows && rows.length) {
             // rows is an array of rows
             rows.map((row) => {
                 providerResult.push({
